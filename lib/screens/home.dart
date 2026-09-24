@@ -1,5 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:firebase_course/app_text_style.dart';
+import 'package:firebase_course/core/constant/app_text_style.dart';
 import 'package:firebase_course/screens/edit.dart';
 import 'package:firebase_course/screens/notes.dart';
 import 'package:flutter/material.dart';

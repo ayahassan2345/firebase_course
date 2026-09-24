@@ -1,5 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_course/core/app_route.dart';
+import 'package:firebase_course/core/constant/app_route.dart';
 import 'package:firebase_course/firebase_options.dart';
 import 'package:flutter/material.dart';
 

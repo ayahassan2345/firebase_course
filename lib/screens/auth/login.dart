@@ -1,4 +1,4 @@
-import 'package:firebase_course/core/app_route.dart';
+import 'package:firebase_course/core/constant/app_route.dart';
 import 'package:firebase_course/core/components/custombuttonauth.dart';
 import 'package:firebase_course/core/components/customlogoauth.dart';
 import 'package:firebase_course/core/components/textformfield.dart';
