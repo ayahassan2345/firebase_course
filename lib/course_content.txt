@@ -1,0 +1,12 @@
+course content:
+
+(1)FIREBASE AUTH:
+1-authStateChanges
+2-createUserWithEmailAndPassword
+3-signInWithEmailAndPassword
+4-sendEmailVerification
+5-signOut
+6-signInWithGoogle
+7-sendPasswordResetEmail
+
+(2)FIRESTORE

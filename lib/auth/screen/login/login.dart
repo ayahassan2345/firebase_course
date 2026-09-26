@@ -2,6 +2,8 @@ import 'package:firebase_course/core/constant/app_route.dart';
 import 'package:firebase_course/core/components/custombuttonauth.dart';
 import 'package:firebase_course/core/components/customlogoauth.dart';
 import 'package:firebase_course/core/components/textformfield.dart';
+import 'package:firebase_course/auth/screen/login/login_function.dart';
+import 'package:firebase_course/auth/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,6 +18,7 @@ class _LoginState extends State<Login> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,12 +31,31 @@ class _LoginState extends State<Login> {
             const CustomLogoAuth(),
             loginTitle(),
             loginDescription(),
-            emailTxt(),
-            pass(),
+            formField(
+              controller: email,
+              hint: 'Enter your Email',
+              validator: (value) {
+                return FormValidation.emailValidator(value);
+              },
+              label: 'Email',
+            ),
+            formField(
+              controller: password,
+              hint: 'Enter your Password',
+              validator: (value) {
+                return FormValidation.passValidator(value);
+              },
+              label: 'Password',
+            ),
             forgotPass(),
             SizedBox(
               width: double.infinity,
-              child: CustomButtonAuth(title: "login", onPressed: () {}),
+              child: CustomButtonAuth(
+                title: "login",
+                onPressed: () {
+                  login(context, email: email, password: password);
+                },
+              ),
             ),
             google(),
             haveAcc(context),
@@ -49,7 +71,9 @@ class _LoginState extends State<Login> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       color: Colors.pinkAccent,
       textColor: Colors.white,
-      onPressed: () {},
+      onPressed: () {
+        signInWithGoogle(context);
+      },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -63,7 +87,7 @@ class _LoginState extends State<Login> {
   InkWell haveAcc(BuildContext context) {
     return InkWell(
       onTap: () {
-      context.push(AppRoute.signUp);
+        context.push(AppRoute.signUp);
       },
       child: const Center(
         child: Text.rich(
@@ -84,36 +108,37 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Container forgotPass() {
-    return Container(
-      margin: const EdgeInsets.only(top: 10, bottom: 20),
-      alignment: Alignment.topRight,
-      child: const Text("Forgot Password ?", style: TextStyle(fontSize: 14)),
+  Widget forgotPass() {
+    return InkWell(
+      onTap: () {
+        context.push(AppRoute.resetPassword);
+      },
+      child: Container(
+        margin: const EdgeInsets.only(top: 10, bottom: 20),
+        alignment: Alignment.topRight,
+        child: const Text("Forgot Password ?", style: TextStyle(fontSize: 14)),
+      ),
     );
   }
 
-  Widget pass() {
+  Widget formField({
+    required String label,
+    required TextEditingController controller,
+    required String hint,
+    required String? Function(String?)? validator,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Password",
+        Text(
+          label,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
-        CustomTextForm(hinttext: "ُEnter Your Password", mycontroller: email),
-      ],
-    );
-  }
-
-  Widget emailTxt() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          "Email",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        CustomTextForm(
+          validator: validator,
+          hinttext: hint,
+          controller: controller,
         ),
-        CustomTextForm(hinttext: "ُEnter Your Email", mycontroller: email),
       ],
     );
   }

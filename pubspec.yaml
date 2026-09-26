@@ -40,6 +40,8 @@ dependencies:
   awesome_dialog: ^3.3.0
   firebase_auth: ^6.7.0
   go_router: ^18.0.1
+  google_sign_in: ^7.2.0
+  shared_preferences: ^2.5.5
 
 dev_dependencies:
   flutter_test:
